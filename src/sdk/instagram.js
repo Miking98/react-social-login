@@ -33,11 +33,11 @@ const load = ({ appId, redirect, scope }) => new Promise((resolve, reject) => {
     return acc
   }, []).join('+')
 
-  _redirect.search = _redirect.search ? _redirect.search + '&' + searchParams : '?' + searchParams
+  _redirect.search = '#' + searchParams;
 
-  instagramAuth = `https://api.instagram.com/oauth/authorize/?client_id=${appId}&scope=${instagramScopes}&redirect_uri=${encodeURIComponent(_redirect.toString())}&response_type=code`
+  instagramAuth = `https://api.instagram.com/oauth/authorize/?client_id=${appId}&scope=${instagramScopes}&response_type=code&redirect_uri=${encodeURIComponent(_redirect.toString())}`
 
-  if (getQueryStringValue('rslCallback') === 'instagram') {
+  if (window.location.origin.includes('instagram.com')) {
     if (getQueryStringValue('error')) {
       return reject(rslError({
         provider: 'instagram',
