@@ -1019,14 +1019,12 @@ var SocialLogin = function SocialLogin(WrappedComponent) {
             version = _props.version;
 
         this.loadPromise = (0, _cancelable2.default)(this.sdk.load({ appId: appId, redirect: redirect, gatekeeper: gatekeeper, scope: scope, version: version }).then(function (accessToken) {
-          if (autoCleanUri) {
-            (0, _utils.cleanLocation)();
-          }
-
           if (accessToken) {
             _this2.accessToken = accessToken;
           }
-
+          if (autoCleanUri) {
+            (0, _utils.cleanLocation)();
+          }
           _this2.setState(function (prevState) {
             return _extends({}, prevState, {
               isLoaded: true
@@ -3639,6 +3637,8 @@ var load = function load(_ref) {
 var checkLogin = function checkLogin() {
   var autoLogin = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
+  console.log('checkLogin');
+  console.log('autoLogin', autoLogin);
   if (autoLogin) {
     return login();
   }
@@ -3687,9 +3687,12 @@ var checkLogin = function checkLogin() {
  */
 var login = function login() {
   return new Promise(function (resolve, reject) {
+    console.log('login');
     checkLogin().then(function (response) {
       return resolve(response);
     }).catch(function (err) {
+      console.log('login error');
+      console.log(err);
       if (!err.fetchErr) {
         window.open(instagramAuth, '_self');
       } else {

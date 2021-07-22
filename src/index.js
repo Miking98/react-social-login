@@ -76,14 +76,12 @@ const SocialLogin = (WrappedComponent) => class SocialLogin extends Component {
     const { appId, autoCleanUri, autoLogin, gatekeeper, redirect, scope, version } = this.props
     this.loadPromise = cancelable(this.sdk.load({ appId, redirect, gatekeeper, scope, version })
       .then((accessToken) => {
-        if (autoCleanUri) {
-          cleanLocation()
-        }
-
         if (accessToken) {
           this.accessToken = accessToken
         }
-
+        if (autoCleanUri) {
+          cleanLocation()
+        }
         this.setState((prevState) => ({
           ...prevState,
           isLoaded: true

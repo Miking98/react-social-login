@@ -61,6 +61,8 @@ const load = ({ appId, redirect, scope }) => new Promise((resolve, reject) => {
  * @see https://www.instagram.com/developer/endpoints/users/#get_users_self
  */
 const checkLogin = (autoLogin = false) => {
+  console.log('checkLogin')
+  console.log('autoLogin', autoLogin)
   if (autoLogin) {
     return login()
   }
@@ -107,9 +109,12 @@ const checkLogin = (autoLogin = false) => {
  * @see https://www.instagram.com/developer/authentication/
  */
 const login = () => new Promise((resolve, reject) => {
+  console.log('login')
   checkLogin()
     .then((response) => resolve(response))
     .catch((err) => {
+      console.log('login error')
+      console.log(err)
       if (!err.fetchErr) {
         window.open(instagramAuth, '_self')
       } else {
