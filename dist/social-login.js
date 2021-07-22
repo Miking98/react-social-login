@@ -3591,7 +3591,6 @@ var load = function load(_ref) {
       scope = _ref.scope;
   return new Promise(function (resolve, reject) {
     var _redirect = (0, _utils.parseAsURL)(redirect);
-    var searchParams = 'rslCallback=instagram';
     var instagramScopes = ['user_profile'];
 
     if (Array.isArray(scope)) {
@@ -3607,8 +3606,6 @@ var load = function load(_ref) {
 
       return acc;
     }, []).join('+');
-
-    _redirect.search = '?' + searchParams;
 
     instagramAuth = 'https://api.instagram.com/oauth/authorize/?client_id=' + appId + '&scope=' + instagramScopes + '&response_type=code&redirect_uri=' + encodeURIComponent(_redirect.toString());
 
