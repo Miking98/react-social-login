@@ -33,7 +33,7 @@ const load = ({ appId, redirect, scope }) => new Promise((resolve, reject) => {
     return acc
   }, []).join('+')
 
-  _redirect.search = '#' + searchParams;
+  _redirect.search = '?' + searchParams
 
   instagramAuth = `https://api.instagram.com/oauth/authorize/?client_id=${appId}&scope=${instagramScopes}&response_type=code&redirect_uri=${encodeURIComponent(_redirect.toString())}`
 
