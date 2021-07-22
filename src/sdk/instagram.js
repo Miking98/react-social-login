@@ -32,12 +32,11 @@ const load = ({ appId, redirect, scope }) => new Promise((resolve, reject) => {
     return acc
   }, []).join('+')
 
-  _redirect.search = '?rslCallback=instagram'
-  instagramAuth = `https://api.instagram.com/oauth/authorize/?client_id=${appId}&scope=${instagramScopes}&response_type=code&redirect_uri=${encodeURIComponent(_redirect.toString())}`
+  instagramAuth = `https://api.instagram.com/oauth/authorize/?client_id=${appId}&scope=${instagramScopes}&response_type=code&state=rslCallbackInstagram&redirect_uri=${encodeURIComponent(_redirect.toString())}`
 
   console.log('Fire Instagram load()')
-  if (getQueryStringValue('rslCallback')) {
-    console.log('Detected rslCallback')
+  if (getQueryStringValue('state') === 'rslCallbackInstagram') {
+    console.log('Detected rslCallbackInstagram')
     if (getQueryStringValue('error')) {
       return reject(rslError({
         provider: 'instagram',

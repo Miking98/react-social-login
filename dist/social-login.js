@@ -3607,12 +3607,11 @@ var load = function load(_ref) {
       return acc;
     }, []).join('+');
 
-    _redirect.search = '?rslCallback=instagram';
-    instagramAuth = 'https://api.instagram.com/oauth/authorize/?client_id=' + appId + '&scope=' + instagramScopes + '&response_type=code&redirect_uri=' + encodeURIComponent(_redirect.toString());
+    instagramAuth = 'https://api.instagram.com/oauth/authorize/?client_id=' + appId + '&scope=' + instagramScopes + '&response_type=code&state=rslCallbackInstagram&redirect_uri=' + encodeURIComponent(_redirect.toString());
 
     console.log('Fire Instagram load()');
-    if ((0, _utils.getQueryStringValue)('rslCallback')) {
-      console.log('Detected rslCallback');
+    if ((0, _utils.getQueryStringValue)('state') === 'rslCallbackInstagram') {
+      console.log('Detected rslCallbackInstagram');
       if ((0, _utils.getQueryStringValue)('error')) {
         return reject((0, _utils.rslError)({
           provider: 'instagram',
