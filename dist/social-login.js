@@ -3607,9 +3607,12 @@ var load = function load(_ref) {
       return acc;
     }, []).join('+');
 
+    _redirect.search = '?rslCallback=instagram';
     instagramAuth = 'https://api.instagram.com/oauth/authorize/?client_id=' + appId + '&scope=' + instagramScopes + '&response_type=code&redirect_uri=' + encodeURIComponent(_redirect.toString());
 
-    if (window.location.origin.includes('instagram.com')) {
+    console.log('Fire Instagram load()');
+    if ((0, _utils.getQueryStringValue)('rslCallback')) {
+      console.log('Detected rslCallback');
       if ((0, _utils.getQueryStringValue)('error')) {
         return reject((0, _utils.rslError)({
           provider: 'instagram',
@@ -3621,7 +3624,8 @@ var load = function load(_ref) {
           }
         }));
       } else {
-        instagramAccessToken = (0, _utils.getHashValue)('access_token');
+        instagramAccessToken = (0, _utils.getQueryStringValue)('code');
+        console.log('Detected Instagram code', instagramAccessToken);
       }
     }
 

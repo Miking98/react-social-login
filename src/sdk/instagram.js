@@ -1,7 +1,7 @@
 
 import fetchJsonp from 'fetch-jsonp'
 
-import { getHashValue, getQueryStringValue, parseAsURL, rslError } from '../utils'
+import { getQueryStringValue, parseAsURL, rslError } from '../utils'
 
 const INSTAGRAM_API = 'https://api.instagram.com/v1'
 
@@ -32,9 +32,12 @@ const load = ({ appId, redirect, scope }) => new Promise((resolve, reject) => {
     return acc
   }, []).join('+')
 
+  _redirect.search = '?rslCallback=instagram'
   instagramAuth = `https://api.instagram.com/oauth/authorize/?client_id=${appId}&scope=${instagramScopes}&response_type=code&redirect_uri=${encodeURIComponent(_redirect.toString())}`
 
-  if (window.location.origin.includes('instagram.com')) {
+  console.log('Fire Instagram load()')
+  if (getQueryStringValue('rslCallback')) {
+    console.log('Detected rslCallback')
     if (getQueryStringValue('error')) {
       return reject(rslError({
         provider: 'instagram',
@@ -46,7 +49,8 @@ const load = ({ appId, redirect, scope }) => new Promise((resolve, reject) => {
         }
       }))
     } else {
-      instagramAccessToken = getHashValue('access_token')
+      instagramAccessToken = getQueryStringValue('code')
+      console.log('Detected Instagram code', instagramAccessToken)
     }
   }
 
