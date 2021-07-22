@@ -121,7 +121,7 @@ var parseAsURL = exports.parseAsURL = function parseAsURL(text) {
     hash: urlParser.hash,
     host: urlParser.host,
     toString: function toString() {
-      return this.protocol + '//' + this.host + (this.pathname === '/' ? '' : this.pathname) + this.search + this.hash;
+      return this.protocol + '//' + this.host + this.pathname + this.search + this.hash;
     }
   };
 };

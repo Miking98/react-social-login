@@ -34,7 +34,7 @@ export const parseAsURL = (text) => {
     hash: urlParser.hash,
     host: urlParser.host,
     toString: function () {
-      return `${this.protocol}//${this.host}${this.pathname === '/' ? '' : this.pathname}${this.search}${this.hash}`
+      return `${this.protocol}//${this.host}${this.pathname}${this.search}${this.hash}`
     }
   }
 }
